@@ -15,6 +15,6 @@ use App\Http\Controllers\RestaurantController;
 */
 
 Route::get('/', function () {
-    return redirect('/restaurants');
+    return redirect('/restaurants/list');
 });
-Route::resource('/restaurants', RestaurantController::class);
+Route::get('/restaurants/list', [RestaurantController::class, 'list']);

@@ -14,3 +14,5 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 - run the migrations and seed the database running the command ```php artisan migrate --seed```
 - in the project folder run ```npm install && npm run dev```
 - start the server with ```php artisan serve```
+
+## API Documentation at /api/v1/docs

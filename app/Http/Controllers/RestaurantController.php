@@ -5,84 +5,45 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Restaurant;
 
+/**
+ * @group Restaurants
+ *
+ * APIs for get users
+ */
 class RestaurantController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
+
+    public function list(){
         $data = array(
             'restaurants'   =>  Restaurant::with(['contact', 'address', 'ratings'])->get()
         );
         return view('restaurant.index')->with($data);
     }
-
     /**
-     * Show the form for creating a new resource.
+     * Get Restaurants
+     * 
+     * Retrieve all restaurants
      *
-     * @return \Illuminate\Http\Response
+     * @return 
      */
-    public function create()
+    public function index()
     {
-        //
+        $response = Restaurant::with(['contact', 'address', 'ratings'])->simplePaginate(5);
+
+        return response()->json($response, 200);
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Get Restaurant
+     * 
+     * Retrieve a restaurant by id
+     * @queryParam id reqyured The id of the restaurant to get Example: 15
+     * @return void
      */
     public function show($id)
     {
-        //
-    }
+        $response = Restaurant::with(['contact', 'address', 'ratings'])->find($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return response()->json($response, 200);
     }
 }
